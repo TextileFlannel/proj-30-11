@@ -16,6 +16,7 @@ func main() {
 	r := gin.Default()
 	r.POST("/links", hand.Links)
 	r.GET("/getAllLinks", hand.GetAllLinks)
+	r.POST("/reportLinks", hand.ReportLinks)
 
 	r.Run()
 }

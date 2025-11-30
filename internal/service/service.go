@@ -1,6 +1,7 @@
 package service
 
 import (
+	"bytes"
 	"proj/internal/models"
 	"proj/internal/storage"
 )
@@ -15,17 +16,14 @@ func NewService(storage *storage.Storage) *Service {
 	}
 }
 
-func (s *Service) Links(links models.LinksResponse) (models.LinksRequest, error) {
-	req, num, err := s.storage.Links(links)
-	if err != nil {
-		return models.LinksRequest{}, err
-	}
-	return models.LinksRequest{
-		Links:    req,
-		LinkNums: num,
-	}, nil
+func (s *Service) Links(links models.LinksRequest) (models.LinksResponse, error) {
+	return s.storage.CheckLinks(links)
 }
 
 func (s *Service) GetAllLinks() ([]map[string]string, error) {
 	return s.storage.GetAllLinks()
+}
+
+func (s *Service) ReportLinks(linksList models.ReportLinksRequest) (bytes.Buffer, error) {
+	return s.storage.ReportLinks(linksList)
 }
