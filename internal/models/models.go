@@ -12,3 +12,8 @@ type LinksResponse struct {
 type ReportLinksRequest struct {
 	LinksList []int `json:"links_list"`
 }
+
+type Result struct {
+	URL    string
+	Status string
+}

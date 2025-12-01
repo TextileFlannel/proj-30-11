@@ -22,11 +22,13 @@ func (h *Handler) Links(c *gin.Context) {
 	var req models.LinksRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
 	res, err := h.service.Links(req)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
 	c.JSON(http.StatusOK, res)
@@ -36,6 +38,7 @@ func (h *Handler) GetAllLinks(c *gin.Context) {
 	res, err := h.service.GetAllLinks()
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 	c.JSON(http.StatusOK, res)
 }
@@ -44,11 +47,13 @@ func (h *Handler) ReportLinks(c *gin.Context) {
 	var req models.ReportLinksRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
 	buf, err := h.service.ReportLinks(req)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
 	c.DataFromReader(http.StatusOK,
